@@ -3,6 +3,11 @@
 import { useAuth } from '@/lib/auth-context';
 import { AuthPage } from '@/components/auth/auth-page';
 import { ChatInterface } from '@/components/chat/chat-interface';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
+import Link from 'next/link';
+import { Bot, MessageCircle, Shield, Sparkles, User, Zap } from 'lucide-react';
 
 export default function Home() {
   const { user, loading } = useAuth();
@@ -12,15 +17,186 @@ export default function Home() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="mt-2 text-gray-600">Loading...</p>
+          <p className="mt-2 text-gray-600 dark:text-gray-400">Loading...</p>
         </div>
       </div>
     );
   }
 
-  if (!user) {
-    return <AuthPage />;
+  if (user) {
+    return <ChatInterface />;
   }
 
-  return <ChatInterface />;
+  return (
+    <div className="min-h-screen">
+      {/* Header */}
+      <header className="border-b">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <div className="flex items-center space-x-2">
+            <Bot className="h-6 w-6 text-blue-600" />
+            <h1 className="text-xl font-bold">ChatNova</h1>
+          </div>
+          <div className="flex items-center space-x-4">
+            <nav className="hidden md:flex space-x-4">
+              <Link href="#features" className="text-sm hover:text-blue-600 transition-colors">Features</Link>
+              <Link href="#about" className="text-sm hover:text-blue-600 transition-colors">About</Link>
+              <Link href="#contact" className="text-sm hover:text-blue-600 transition-colors">Contact</Link>
+              <Link href="#privacy" className="text-sm hover:text-blue-600 transition-colors">Privacy</Link>
+            </nav>
+            <ThemeToggle />
+            <Button onClick={() => document.getElementById('auth-section')?.scrollIntoView({ behavior: 'smooth' })}>
+              Get Started
+            </Button>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="py-20 bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-gray-950">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">Experience the Power of AI Conversations</h1>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            ChatNova brings you intelligent conversations powered by ChatGPT. Connect, learn, and explore with our cutting-edge AI assistant.
+          </p>
+          <Button size="lg" onClick={() => document.getElementById('auth-section')?.scrollIntoView({ behavior: 'smooth' })}>
+            Start Chatting Now
+          </Button>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="py-16 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Key Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <Card>
+              <CardHeader>
+                <Sparkles className="h-8 w-8 text-blue-600 mb-2" />
+                <CardTitle>AI-Powered Responses</CardTitle>
+                <CardDescription>Get intelligent, context-aware responses from ChatGPT's powerful language model.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>Our integration with OpenAI's ChatGPT ensures you get the most accurate and helpful responses for any query.</p>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <Shield className="h-8 w-8 text-blue-600 mb-2" />
+                <CardTitle>Secure Authentication</CardTitle>
+                <CardDescription>Your data is protected with Firebase's secure authentication system.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>We use industry-standard security practices to keep your conversations and account information safe.</p>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <Zap className="h-8 w-8 text-blue-600 mb-2" />
+                <CardTitle>Fast & Responsive</CardTitle>
+                <CardDescription>Experience lightning-fast responses and a smooth user interface.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>Built with Next.js and optimized for performance, ChatNova provides a seamless chatting experience.</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section id="about" className="py-16 bg-gray-50 dark:bg-gray-800">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-8">About Us</h2>
+          <div className="max-w-3xl mx-auto">
+            <p className="text-lg mb-4">
+              ChatNova was created with a simple mission: to make AI conversations accessible to everyone. Our team of passionate developers and AI enthusiasts has built a platform that combines the latest advancements in AI technology with a user-friendly interface.
+            </p>
+            <p className="text-lg mb-4">
+              We believe in the power of AI to transform how we learn, work, and communicate. ChatNova is our contribution to this exciting future, providing a tool that helps you harness the capabilities of advanced language models in your everyday life.
+            </p>
+            <p className="text-lg">
+              Whether you're looking for information, creative inspiration, or just a friendly conversation, ChatNova is here to assist you.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-16 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-8">Contact Us</h2>
+          <div className="max-w-md mx-auto">
+            <p className="text-center mb-6">
+              Have questions or feedback? We'd love to hear from you! Reach out to our team using the information below.
+            </p>
+            <div className="space-y-4">
+              <div className="flex items-center">
+                <MessageCircle className="h-5 w-5 mr-3 text-blue-600" />
+                <span>support@chatnova.com</span>
+              </div>
+              <div className="flex items-center">
+                <User className="h-5 w-5 mr-3 text-blue-600" />
+                <span>+1 (555) 123-4567</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Privacy Section */}
+      <section id="privacy" className="py-16 bg-gray-50 dark:bg-gray-800">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-8">Privacy Policy</h2>
+          <div className="max-w-3xl mx-auto">
+            <p className="text-lg mb-4">
+              At ChatNova, we take your privacy seriously. We are committed to protecting your personal information and ensuring that your data is handled securely.
+            </p>
+            <h3 className="text-xl font-semibold mt-6 mb-2">Data Collection</h3>
+            <p className="mb-4">
+              We collect only the information necessary to provide our services, including your email address for account creation and chat history to maintain your conversations.
+            </p>
+            <h3 className="text-xl font-semibold mt-6 mb-2">Data Usage</h3>
+            <p className="mb-4">
+              Your data is used solely to provide and improve our services. We do not sell your personal information to third parties.
+            </p>
+            <h3 className="text-xl font-semibold mt-6 mb-2">Data Security</h3>
+            <p className="mb-4">
+              We implement industry-standard security measures to protect your data from unauthorized access, disclosure, alteration, and destruction.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Auth Section */}
+      <section id="auth-section" className="py-16 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-8">Get Started</h2>
+          <AuthPage />
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-8 bg-gray-100 dark:bg-gray-950 border-t">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center space-x-2 mb-4 md:mb-0">
+              <Bot className="h-6 w-6 text-blue-600" />
+              <span className="font-bold">ChatNova</span>
+            </div>
+            <div className="flex space-x-6">
+              <Link href="#features" className="text-sm hover:text-blue-600 transition-colors">Features</Link>
+              <Link href="#about" className="text-sm hover:text-blue-600 transition-colors">About</Link>
+              <Link href="#contact" className="text-sm hover:text-blue-600 transition-colors">Contact</Link>
+              <Link href="#privacy" className="text-sm hover:text-blue-600 transition-colors">Privacy</Link>
+            </div>
+          </div>
+          <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+            &copy; {new Date().getFullYear()} ChatNova. All rights reserved.
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
 }

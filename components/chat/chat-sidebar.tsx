@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Plus, MessageSquare, LogOut } from 'lucide-react';
+import { Plus, MessageSquare } from 'lucide-react';
 import { useAuth } from '@/lib/auth-context';
 import { ChatService, Chat } from '@/lib/chat-service';
 import { format } from 'date-fns';
@@ -17,7 +17,7 @@ interface ChatSidebarProps {
 export function ChatSidebar({ onSelectChat, onCreateNewChat, selectedChatId }: ChatSidebarProps) {
   const [chats, setChats] = useState<Chat[]>([]);
   const [loading, setLoading] = useState(true);
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (user) {
@@ -39,28 +39,11 @@ export function ChatSidebar({ onSelectChat, onCreateNewChat, selectedChatId }: C
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-    } catch (error) {
-      console.error('Error logging out:', error);
-    }
-  };
-
   return (
-    <div className="w-80 bg-gray-50 border-r flex flex-col h-full">
-      <div className="p-4 border-b">
+    <div className="w-80 bg-gray-50 dark:bg-gray-900 border-r dark:border-gray-800 flex flex-col h-full">
+      <div className="p-4 border-b dark:border-gray-800">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">ChatNova</h2>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleLogout}
-            className="text-red-600 hover:text-red-700"
-          >
-            <LogOut className="h-4 w-4 mr-2" />
-            Logout
-          </Button>
+          <h2 className="text-lg font-semibold">Your Chats</h2>
         </div>
         
         <Button onClick={onCreateNewChat} className="w-full">
@@ -71,10 +54,10 @@ export function ChatSidebar({ onSelectChat, onCreateNewChat, selectedChatId }: C
 
       <div className="flex-1 overflow-y-auto p-4">
         {loading ? (
-          <div className="text-center text-gray-500">Loading chats...</div>
+          <div className="text-center text-gray-500 dark:text-gray-400">Loading chats...</div>
         ) : chats.length === 0 ? (
-          <div className="text-center text-gray-500">
-            <MessageSquare className="h-12 w-12 mx-auto mb-2 text-gray-300" />
+          <div className="text-center text-gray-500 dark:text-gray-400">
+            <MessageSquare className="h-12 w-12 mx-auto mb-2 text-gray-300 dark:text-gray-600" />
             <p>No chats yet</p>
             <p className="text-sm">Start a new conversation!</p>
           </div>
@@ -85,8 +68,8 @@ export function ChatSidebar({ onSelectChat, onCreateNewChat, selectedChatId }: C
                 key={chat.id}
                 className={`cursor-pointer transition-colors ${
                   selectedChatId === chat.id
-                    ? 'bg-blue-50 border-blue-200'
-                    : 'hover:bg-gray-100'
+                    ? 'bg-blue-50 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800'
+                    : 'hover:bg-gray-100 dark:hover:bg-gray-800'
                 }`}
                 onClick={() => onSelectChat(chat)}
               >
@@ -94,11 +77,11 @@ export function ChatSidebar({ onSelectChat, onCreateNewChat, selectedChatId }: C
                   <h3 className="font-medium text-sm truncate">
                     {chat.title || 'New Chat'}
                   </h3>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                     {format(chat.updatedAt, 'MMM d, HH:mm')}
                   </p>
                   {chat.messages.length > 0 && (
-                    <p className="text-xs text-gray-600 mt-1 truncate">
+                    <p className="text-xs text-gray-600 dark:text-gray-300 mt-1 truncate">
                       {chat.messages[chat.messages.length - 1].content}
                     </p>
                   )}

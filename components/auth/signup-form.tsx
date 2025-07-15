@@ -12,6 +12,7 @@ import { useAuth } from '@/lib/auth-context';
 import { toast } from 'sonner';
 
 const signupSchema = z.object({
+  displayName: z.string().min(2, 'Display name must be at least 2 characters').max(50),
   email: z.string().email('Please enter a valid email'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
   confirmPassword: z.string(),
@@ -41,7 +42,7 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
   const onSubmit = async (data: SignupFormData) => {
     setIsLoading(true);
     try {
-      await signUp(data.email, data.password);
+      await signUp(data.email, data.password, data.displayName);
       toast.success('Account created successfully!');
     } catch (error: any) {
       toast.error(error.message || 'Failed to create account');
@@ -60,6 +61,19 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="displayName">Display Name</Label>
+            <Input
+              id="displayName"
+              type="text"
+              placeholder="Enter your display name"
+              {...register('displayName')}
+            />
+            {errors.displayName && (
+              <p className="text-sm text-red-500">{errors.displayName.message}</p>
+            )}
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -105,7 +119,7 @@ export function SignupForm({ onSwitchToLogin }: SignupFormProps) {
         </form>
 
         <div className="mt-4 text-center">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             Already have an account?{' '}
             <button
               type="button"

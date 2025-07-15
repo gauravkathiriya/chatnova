@@ -22,10 +22,22 @@ export function ChatMessage({ message }: ChatMessageProps) {
         </Avatar>
       )}
       
-      <Card className={`max-w-[80%] ${isUser ? 'bg-blue-500 text-white' : 'bg-gray-100'}`}>
+      <Card 
+        className={`max-w-[80%] ${
+          isUser 
+            ? 'bg-blue-500 text-white dark:bg-blue-600' 
+            : 'bg-gray-100 dark:bg-gray-800 dark:text-gray-100'
+        }`}
+      >
         <CardContent className="p-3">
           <p className="text-sm whitespace-pre-wrap">{message.content}</p>
-          <p className={`text-xs mt-2 ${isUser ? 'text-blue-100' : 'text-gray-500'}`}>
+          <p 
+            className={`text-xs mt-2 ${
+              isUser 
+                ? 'text-blue-100' 
+                : 'text-gray-500 dark:text-gray-400'
+            }`}
+          >
             {format(message.timestamp, 'HH:mm')}
           </p>
         </CardContent>

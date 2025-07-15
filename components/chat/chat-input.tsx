@@ -28,13 +28,13 @@ export function ChatInput({ onSendMessage, isLoading = false }: ChatInputProps) 
   };
 
   return (
-    <div className="flex gap-2 p-4 border-t bg-white">
+    <div className="flex gap-2 p-4 border-t bg-white dark:bg-gray-950 dark:border-gray-800">
       <Textarea
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         onKeyPress={handleKeyPress}
         placeholder="Type your message..."
-        className="min-h-[60px] max-h-[120px] resize-none"
+        className="min-h-[60px] max-h-[120px] resize-none dark:bg-gray-900"
         disabled={isLoading}
       />
       <Button
