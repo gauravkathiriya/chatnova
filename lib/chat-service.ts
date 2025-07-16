@@ -168,7 +168,7 @@ export class ChatService {
 
       // Otherwise use the real API
       const response = await openai.responses.create({
-        model: "gpt-4o-mini",
+        model: "gpt-3.5-turbo",
         input: messages.map((msg) => ({
           role: msg.role,
           content: msg.content,
