@@ -38,15 +38,15 @@ export default function Home() {
           </div>
           <div className="flex items-center space-x-4">
             <nav className="hidden md:flex space-x-4">
-              <Link href="#features" className="text-sm hover:text-blue-600 transition-colors">Features</Link>
-              <Link href="#about" className="text-sm hover:text-blue-600 transition-colors">About</Link>
-              <Link href="#contact" className="text-sm hover:text-blue-600 transition-colors">Contact</Link>
-              <Link href="#privacy" className="text-sm hover:text-blue-600 transition-colors">Privacy</Link>
+              <Link href="/features" className="text-sm hover:text-blue-600 transition-colors">Features</Link>
+              <Link href="/about" className="text-sm hover:text-blue-600 transition-colors">About</Link>
+              <Link href="/contact" className="text-sm hover:text-blue-600 transition-colors">Contact</Link>
+              <Link href="/privacy" className="text-sm hover:text-blue-600 transition-colors">Privacy</Link>
             </nav>
             <ThemeToggle />
-            <Button onClick={() => document.getElementById('auth-section')?.scrollIntoView({ behavior: 'smooth' })}>
-              Get Started
-            </Button>
+            <Link href="/login">
+              <Button>Login</Button>
+            </Link>
           </div>
         </div>
       </header>
@@ -58,14 +58,19 @@ export default function Home() {
           <p className="text-xl mb-8 max-w-2xl mx-auto">
             ChatNova brings you intelligent conversations powered by ChatGPT. Connect, learn, and explore with our cutting-edge AI assistant.
           </p>
-          <Button size="lg" onClick={() => document.getElementById('auth-section')?.scrollIntoView({ behavior: 'smooth' })}>
-            Start Chatting Now
-          </Button>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <Link href="/signup">
+              <Button size="lg">Get Started</Button>
+            </Link>
+            <Link href="/features">
+              <Button size="lg" variant="outline">Learn More</Button>
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-16 bg-white dark:bg-gray-900">
+      <section className="py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Key Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -102,78 +107,30 @@ export default function Home() {
               </CardContent>
             </Card>
           </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-16 bg-gray-50 dark:bg-gray-800">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">About Us</h2>
-          <div className="max-w-3xl mx-auto">
-            <p className="text-lg mb-4">
-              ChatNova was created with a simple mission: to make AI conversations accessible to everyone. Our team of passionate developers and AI enthusiasts has built a platform that combines the latest advancements in AI technology with a user-friendly interface.
-            </p>
-            <p className="text-lg mb-4">
-              We believe in the power of AI to transform how we learn, work, and communicate. ChatNova is our contribution to this exciting future, providing a tool that helps you harness the capabilities of advanced language models in your everyday life.
-            </p>
-            <p className="text-lg">
-              Whether you're looking for information, creative inspiration, or just a friendly conversation, ChatNova is here to assist you.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-16 bg-white dark:bg-gray-900">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">Contact Us</h2>
-          <div className="max-w-md mx-auto">
-            <p className="text-center mb-6">
-              Have questions or feedback? We'd love to hear from you! Reach out to our team using the information below.
-            </p>
-            <div className="space-y-4">
-              <div className="flex items-center">
-                <MessageCircle className="h-5 w-5 mr-3 text-blue-600" />
-                <span>support@chatnova.com</span>
-              </div>
-              <div className="flex items-center">
-                <User className="h-5 w-5 mr-3 text-blue-600" />
-                <span>+1 (555) 123-4567</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Privacy Section */}
-      <section id="privacy" className="py-16 bg-gray-50 dark:bg-gray-800">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-8">Privacy Policy</h2>
-          <div className="max-w-3xl mx-auto">
-            <p className="text-lg mb-4">
-              At ChatNova, we take your privacy seriously. We are committed to protecting your personal information and ensuring that your data is handled securely.
-            </p>
-            <h3 className="text-xl font-semibold mt-6 mb-2">Data Collection</h3>
-            <p className="mb-4">
-              We collect only the information necessary to provide our services, including your email address for account creation and chat history to maintain your conversations.
-            </p>
-            <h3 className="text-xl font-semibold mt-6 mb-2">Data Usage</h3>
-            <p className="mb-4">
-              Your data is used solely to provide and improve our services. We do not sell your personal information to third parties.
-            </p>
-            <h3 className="text-xl font-semibold mt-6 mb-2">Data Security</h3>
-            <p className="mb-4">
-              We implement industry-standard security measures to protect your data from unauthorized access, disclosure, alteration, and destruction.
-            </p>
+          <div className="mt-12 text-center">
+            <Link href="/features">
+              <Button variant="outline">View All Features</Button>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Auth Section */}
-      <section id="auth-section" className="py-16 bg-white dark:bg-gray-900">
+      <section id="auth-section" className="py-16 bg-gray-50 dark:bg-gray-800">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">Get Started</h2>
-          <AuthPage />
+          <div className="flex justify-center">
+            <div className="w-full max-w-md">
+              <div className="flex justify-center space-x-4 mb-8">
+                <Link href="/login">
+                  <Button size="lg">Login</Button>
+                </Link>
+                <Link href="/signup">
+                  <Button size="lg" variant="outline">Sign Up</Button>
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -186,10 +143,10 @@ export default function Home() {
               <span className="font-bold">ChatNova</span>
             </div>
             <div className="flex space-x-6">
-              <Link href="#features" className="text-sm hover:text-blue-600 transition-colors">Features</Link>
-              <Link href="#about" className="text-sm hover:text-blue-600 transition-colors">About</Link>
-              <Link href="#contact" className="text-sm hover:text-blue-600 transition-colors">Contact</Link>
-              <Link href="#privacy" className="text-sm hover:text-blue-600 transition-colors">Privacy</Link>
+              <Link href="/features" className="text-sm hover:text-blue-600 transition-colors">Features</Link>
+              <Link href="/about" className="text-sm hover:text-blue-600 transition-colors">About</Link>
+              <Link href="/contact" className="text-sm hover:text-blue-600 transition-colors">Contact</Link>
+              <Link href="/privacy" className="text-sm hover:text-blue-600 transition-colors">Privacy</Link>
             </div>
           </div>
           <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
